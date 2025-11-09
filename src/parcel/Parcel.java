@@ -2,10 +2,10 @@ package parcel;
 
 public abstract class Parcel {
 
-    private String description;
-    private double weight;
-    private String deliveryAddress;
-    private int sendDay;
+    private final String description;
+    private final double weight;
+    private final String deliveryAddress;
+    private final int sendDay;
 
     public Parcel(String description, double weight, String deliveryAddress, int sendDay) {
         this.description = description;
@@ -34,5 +34,9 @@ public abstract class Parcel {
 
     public int getSendDay() {
         return sendDay;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 }
