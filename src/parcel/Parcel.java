@@ -2,10 +2,10 @@ package parcel;
 
 public abstract class Parcel {
 
-    public String description;
-    public double weight;
-    public String deliveryAddress;
-    public int sendDay;
+    private String description;
+    private double weight;
+    private String deliveryAddress;
+    private int sendDay;
 
     public Parcel(String description, double weight, String deliveryAddress, int sendDay) {
         this.description = description;
@@ -26,5 +26,13 @@ public abstract class Parcel {
 
     public double calculateDeliveryCost() {
         return weight * getBaseRate();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getSendDay() {
+        return sendDay;
     }
 }

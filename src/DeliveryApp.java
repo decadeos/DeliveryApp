@@ -1,4 +1,5 @@
 import parcel.Parcel;
+import parcel.Trackable;
 import parcel.types.FragileParcel;
 import parcel.types.PerishableParcel;
 import parcel.types.StandardParcel;
@@ -10,7 +11,8 @@ import java.util.Scanner;
 public class DeliveryApp {
 
     private static final Scanner scanner = new Scanner(System.in);
-    private static List<Parcel> allParcels = new ArrayList<>();
+    private static final List<Parcel> allParcels = new ArrayList<>();
+    private static final List<Trackable> trackableParcels = new ArrayList<>();
 
     public static void main(String[] args) {
         boolean running = true;
@@ -28,6 +30,9 @@ public class DeliveryApp {
                 case 3:
                     calculateCosts();
                     break;
+                case 4:
+                    updateTrackableStatuses();
+                    break;
                 case 0:
                     running = false;
                     break;
@@ -42,6 +47,7 @@ public class DeliveryApp {
         System.out.println("1 — Добавить посылку");
         System.out.println("2 — Отправить все посылки");
         System.out.println("3 — Посчитать стоимость доставки");
+        System.out.println("4 — Обновить статус отслеживаемых посылок");
         System.out.println("0 — Завершить");
     }
 
@@ -65,6 +71,7 @@ public class DeliveryApp {
             case "FragileParcel":
                 FragileParcel fragileParcel = new FragileParcel(description, weight, deliveryAddress, sendDay);
                 allParcels.add(fragileParcel);
+                trackableParcels.add(fragileParcel);
                 System.out.println("Хрупкая посылка добавлена!");
                 break;
             case "PerishableParcel":
@@ -81,10 +88,16 @@ public class DeliveryApp {
     }
 
     private static void sendParcels() {
+        if (allParcels.isEmpty()) {
+            System.out.println("Нет посылок для отправки.");
+            return;
+        }
+
         for (Parcel parcel : allParcels) {
             parcel.packageItem();
             parcel.deliver();
         }
+        allParcels.clear();
         // Пройти по allParcels, вызвать packageItem() и deliver()
     }
 
@@ -95,6 +108,20 @@ public class DeliveryApp {
         }
         System.out.println("Общая стоимость всех доставок: " + allCost);
         // Посчитать общую стоимость всех доставок и вывести на экран
+    }
+
+    public static void updateTrackableStatuses() {
+        if (trackableParcels.isEmpty()) {
+            System.out.println("Нет посылок с трекингом.");
+            return;
+        }
+
+        System.out.println("Введите новое местоположение для всех отслеживаемых посылок:");
+        String newLocation = scanner.nextLine().trim();
+
+        for (Trackable trackable : trackableParcels) {
+            trackable.reportStatus(newLocation);
+        }
     }
 
 }

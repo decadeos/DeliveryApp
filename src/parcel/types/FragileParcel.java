@@ -1,9 +1,10 @@
 package parcel.types;
 
 import parcel.Parcel;
+import parcel.Trackable;
 
 // хрупкая
-public class FragileParcel extends Parcel {
+public class FragileParcel extends Parcel implements Trackable {
 
     private static final double BASE_RATE = 4.0;
 
@@ -13,7 +14,7 @@ public class FragileParcel extends Parcel {
 
     @Override
     public void packageItem() {
-        System.out.println("Посылка <<" + description + ">> обернута в защитную пленку");
+        System.out.println("Посылка <<" + getDescription() + ">> обернута в защитную пленку");
     }
 
     @Override
@@ -21,4 +22,9 @@ public class FragileParcel extends Parcel {
         return BASE_RATE;
     }
 
+    @Override
+    public void reportStatus(String newLocation) {
+        System.out.println("Хрупкая посылка \"" + getDescription()
+                + "\" изменила местоположение на " + newLocation);
+    }
 }
