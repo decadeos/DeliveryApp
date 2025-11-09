@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
+// Простите, я прошляпила видимо ссылку для форка, поэтому отправлю архивом
+// но если что вот https://github.com/decadeos/DeliveryApp
 public class DeliveryApp {
 
     private static final Scanner scanner = new Scanner(System.in);
